@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.0.xsd">
+    <service verb="get" noun="Enums">
+        <in-parameters>
+            <parameter name="environment" type="graphql.schema.DataFetchingEnvironment"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="enumList" type="List"><parameter name="enum" type="Map">
+                <auto-parameters entity-name="moqui.basic.Enumeration" include="all"/>
+            </parameter></parameter>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="moqui.basic.Enumeration" cache="true" list="enumList" limit="5"/>
+        </actions>
+    </service>
+
+    <service verb="get" noun="Enum">
+        <in-parameters>
+            <parameter name="environment" type="graphql.schema.DataFetchingEnvironment"/>
+        </in-parameters>
+        <out-parameters>
+            <auto-parameters entity-name="moqui.basic.Enumeration" include="all"/>
+            <parameter name="lastUpdatedStamp" type="Timestamp"/>
+        </out-parameters>
+        <actions>
+            <entity-find-one entity-name="moqui.basic.Enumeration" value-field="context">
+                <field-map field-name="enumId" value="GEOT_COUNTY"/>
+            </entity-find-one>
+        </actions>
+    </service>
+
+    <service verb="get" noun="Basic">
+        <in-parameters>
+            <parameter name="environment" type="graphql.schema.DataFetchingEnvironment"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="enums" type="List"><parameter name="enum" type="Map">
+                <auto-parameters entity-name="moqui.basic.Enumeration" include="all"/>
+            </parameter></parameter>
+        </out-parameters>
+        <actions>
+            <entity-find entity-name="moqui.basic.Enumeration" cache="true" list="enums" limit="5"/>
+        </actions>
+    </service>
+</services>
