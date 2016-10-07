@@ -19,8 +19,25 @@ git clone https://github.com/shendepu/moqui-graphql-demo ./runtime/component/mqo
 ./gradlew run 
 ```
 
-First open http://localhsot:8080 and login with john.deo test account
-then open [http://localhost:8080/graphql/v1/graphql-demo?query={graphqlDemo{basic{enums{enumId,enumTypeId,description,lastUpdatedStamp}}}}](http://localhost:8080/graphql/v1/graphql-demo?query={graphqlDemo{basic{enums{enumId,enumTypeId,description,lastUpdatedStamp}}}})
+First open http://localhost:8080 and login with john.deo test account
+
+then open [http://localhost:8080/graphql/GraphiQL?schemaName=graphql-demo](http://localhost:8080/graphql/GraphiQL?schemaName=graphql-demo)
+
+input 
+```graphql
+{
+  graphqlDemo {
+    basic {
+      enums {
+        enumId
+        enumTypeId
+        description
+        lastUpdatedStamp
+      }
+    }
+  }
+}
+```
 result would be like 
 ```json
 {
