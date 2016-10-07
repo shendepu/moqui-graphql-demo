@@ -13,14 +13,8 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/graphql-api-0.0.1.xsd"
     name="graphql-demo" query="QueryType">
-    <object name="Enum">
-        <field name="enumId" type="ID"/>
-        <field name="enumTypeId" type="String"/>
-        <field name="description" type="String"/>
-        <field name="lastUpdatedStamp" type="Timestamp"/>
-    </object>
     <object name="Basic">
-        <field name="enums" type="Enum" is-list="true">
+        <field name="enums" type="Enumeration" is-list="true">
         </field>
     </object>
     <object name="MoquiGraphQLDemo">
