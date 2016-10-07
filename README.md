@@ -83,3 +83,7 @@ result would be like
 ```
 
 You may modify the query by removing some fields of enums to get different result  
+
+## Snapshot
+
+![GraphiQL](graphiql-snapshot.png)
