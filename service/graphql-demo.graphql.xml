@@ -15,12 +15,15 @@ along with this software (see the LICENSE.md file). If not, see
     name="graphql-demo" query="QueryType">
     <object name="Basic">
         <field name="enums" type="Enumeration" is-list="true">
+            <service-fetcher service="graphqldemo.moqui.BasicServices.get#Enums"/>
         </field>
     </object>
     <object name="MoquiGraphQLDemo">
-        <field name="basic" type="Basic">
-            <data-fetcher><service name="graphql-demo.moqui.BasicServices.getBasic"/></data-fetcher>
+        <field name="basic" type="Basic"><empty-fetcher/></field>
+        <field name="products" type="Product" is-list="true">
+            <entity-fetcher entity-name="mantle.product.Product" operation="list"/>
         </field>
+        <field name="product" type="Product"/>
     </object>
     <object name="QueryType">
         <field name="graphqlDemo" type="MoquiGraphQLDemo"><empty-fetcher/></field>

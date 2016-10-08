@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.0.xsd">
+    <service verb="get" noun="Enums">
+        <implements service="graphql.GeneralServices.get#ListPaginationInterface"/>
+        <actions>
+            <set field="paginateMap" from="[pageIndex: 0, pageSize: 5]"/>
+            <entity-find entity-name="moqui.basic.Enumeration" cache="true" list="data">
+                <search-form-inputs input-fields-map="paginateMap"/>
+            </entity-find>
+            <set field="pageInfo" from="[pageIndex:paginateMap.pageIndex, pageSize:paginateMap.pageSize, totalCount:dataCount,
+                pageMaxIndex:dataPageMaxIndex, pageRangeLow:dataPageRangeLow, pageRangeHigh:dataPageRangeHigh]"/>
+        </actions>
+    </service>
+</services>
