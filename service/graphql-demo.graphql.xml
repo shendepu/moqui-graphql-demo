@@ -13,19 +13,48 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/graphql-api-0.0.1.xsd"
     name="graphql-demo" query="QueryType">
+    <extend-object name="Party">
+        <exclude-field name="person"/>
+        <exclude-field name="organization"/>
+        <convert-to-interface resolver-field="partyTypeEnumId">
+            <resolver-map resolver-value="PtyOrganization" resolver-type="Organization"/>
+        </convert-to-interface>
+    </extend-object>
+    <extend-object name="Person">
+        <interface name="PartyInterface" resolver-value="PtyPerson" resolver-type="Person"/>
+    </extend-object>
+
     <object name="Basic">
         <field name="enums" type="Enumeration" is-list="true">
             <service-fetcher service="graphqldemo.moqui.BasicServices.get#Enums"/>
         </field>
     </object>
     <object name="MoquiGraphQLDemo">
-        <field name="basic" type="Basic"><empty-fetcher/></field>
+        <field name="basic" type="Basic"/>
         <field name="products" type="Product" is-list="true">
-            <entity-fetcher entity-name="mantle.product.Product" operation="list"/>
+            <auto-arguments entity-name="mantle.product.Product" include="all"/>
+            <entity-fetcher entity-name="mantle.product.Product"/>
         </field>
-        <field name="product" type="Product"/>
+        <field name="product" type="Product">
+            <auto-arguments entity-name="mantle.product.Product" include="pk"/>
+            <entity-fetcher entity-name="mantle.product.Product"/>
+        </field>
+        <field name="partyInterface" type="PartyInterface" is-list="true">
+            <auto-arguments entity-name="mantle.party.Party" include="all"/>
+            <argument name="pagination" type="PaginationInputType"/>
+            <entity-fetcher entity-name="mantle.party.Party"/>
+        </field>
+        <field name="person" type="Person">
+            <auto-arguments entity-name="mantle.party.Person" include="all"/>
+            <entity-fetcher entity-name="mantle.party.Person" interface-entity-name="mantle.party.Party"/>
+        </field>
+        <field name="persons" type="Person" is-list="true">
+            <auto-arguments entity-name="mantle.party.Person" include="all"/>
+            <entity-fetcher entity-name="mantle.party.Person" interface-entity-name="mantle.party.Party"/>
+        </field>
     </object>
     <object name="QueryType">
-        <field name="graphqlDemo" type="MoquiGraphQLDemo"><empty-fetcher/></field>
+        <field name="graphqlDemo" type="MoquiGraphQLDemo"/>
     </object>
+    <pre-load-object object-type="EnumerationType"/>
 </schema>
