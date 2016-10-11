@@ -21,69 +21,65 @@ git clone https://github.com/shendepu/moqui-graphql-demo ./runtime/component/mqo
 
 First open http://localhost:8080 and login with john.deo test account
 
-then open [http://localhost:8080/graphql/GraphiQL?schemaName=graphql-demo](http://localhost:8080/graphql/GraphiQL?schemaName=graphql-demo)
+then open [http://localhost:8080/graphql/GraphiQL?schemaName=moqui](http://localhost:8080/graphql/GraphiQL?schemaName=moqui)
+
+#### Note: It seems safari has issue to show variable panel of GraphiQL. Chrome and firefox are fine. 
 
 input 
 ```graphql
-{
-  graphqlDemo {
-    basic {
-      enums {
-        enumId
-        enumTypeId
-        description
-        lastUpdatedStamp
+query QueryType($showUsers: Boolean!) {
+	artifacts {
+    hitSummary (pagination:{ pageSize: 1 }) {
+      data {
+        artifactType
+        artifactSubType
+      }
+    }
+  }
+  users (pagination: {pageSize: 2}) @include(if: $showUsers) {
+    data {
+      userId 
+      username
+      emailAddress
+      
+    }
+  }
+  user(userId: "EX_JOHN_DOE") {
+    userId
+    username
+    userFullName
+  }
+  
+  entity {
+    syncs {
+      data {
+        entitySyncId
+      }
+    }
+  }
+  basic {
+    geos (pagination: {pageSize: 4 }) {
+      data {
+        geoId
+        geoName
+      }
+      pageInfo {
+        totalCount
       }
     }
   }
 }
 ```
-result would be like 
+also add query variables
 ```json
 {
-  "data": {
-    "graphqlDemo": {
-      "basic": {
-        "enums": [
-          {
-            "enumId": "DST_PURCHASED_DATA",
-            "enumTypeId": "DataSourceType",
-            "description": "Purchased Data",
-            "lastUpdatedStamp": 1474531992194
-          },
-          {
-            "enumId": "DST_CUSTOMER_ENTRY",
-            "enumTypeId": "DataSourceType",
-            "description": "Customer Data Entry",
-            "lastUpdatedStamp": 1474531992194
-          },
-          {
-            "enumId": "DST_INTERNAL_ENTRY",
-            "enumTypeId": "DataSourceType",
-            "description": "Internal Data Entry (employees, etc)",
-            "lastUpdatedStamp": 1474531992194
-          },
-          {
-            "enumId": "DST_MAILING_SIGNUP",
-            "enumTypeId": "DataSourceType",
-            "description": "Mailing List Sign-up",
-            "lastUpdatedStamp": 1474531992194
-          },
-          {
-            "enumId": "_NA_",
-            "enumTypeId": "_NA_",
-            "description": "Not Applicable",
-            "lastUpdatedStamp": 1474531992194
-          }
-        ]
-      }
-    }
-  }
+  "showUsers": true
 }
 ```
 
-You may modify the query by removing some fields of enums to get different result  
+You may try modifying the query to see different result  
 
 ## Snapshot
 
 ![GraphiQL](graphiql-snapshot.png)
+
