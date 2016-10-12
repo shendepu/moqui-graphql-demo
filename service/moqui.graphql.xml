@@ -16,106 +16,80 @@ along with this software (see the LICENSE.md file). If not, see
 
     <object name="ArtifactsObjectType">
         <field name="hitSummary" type="ArtifactHitReport" is-list="true">
-            <auto-arguments entity-name="moqui.server.ArtifactHitReport" include="all"/>
             <entity-fetcher entity-name="moqui.server.ArtifactHitReport"/></field>
 
         <field name="hitBins" type="ArtifactHitBin" is-list="true">
-            <auto-arguments entity-name="moqui.server.ArtifactHitBin" include="all"/>
             <entity-fetcher entity-name="moqui.server.ArtifactHitBin"/></field>
     </object>
 
     <object name="BasicObjectType">
         <field name="enums" type="Enumeration" is-list="true">
-            <auto-arguments entity-name="moqui.basic.Enumeration" include="all"/>
             <entity-fetcher entity-name="moqui.basic.Enumeration"/></field>
         <field name="enum" type="Enumeration">
-            <auto-arguments entity-name="moqui.basic.Enumeration" include="pk"/>
             <entity-fetcher entity-name="moqui.basic.Enumeration"/></field>
 
         <field name="enumTypes" type="EnumerationType" is-list="true">
-            <auto-arguments entity-name="moqui.basic.EnumerationType" include="all"/>
             <entity-fetcher entity-name="moqui.basic.EnumerationType"/></field>
         <field name="enumType" type="EnumerationType">
-            <auto-arguments entity-name="moqui.basic.EnumerationType" include="pk"/>
             <entity-fetcher entity-name="moqui.basic.EnumerationType"/></field>
 
         <field name="geos" type="Geo" is-list="true">
-            <auto-arguments entity-name="moqui.basic.Geo" include="all"/>
             <entity-fetcher entity-name="moqui.basic.Geo"/></field>
         <field name="geo" type="Geo">
-            <auto-arguments entity-name="moqui.basic.Geo" include="pk"/>
             <entity-fetcher entity-name="moqui.basic.Geo"/></field>
 
         <field name="statuses" type="StatusItem" is-list="true">
-            <auto-arguments entity-name="moqui.basic.StatusItem" include="all"/>
             <entity-fetcher entity-name="moqui.basic.StatusItem"/></field>
         <field name="status" type="StatusItem">
-            <auto-arguments entity-name="moqui.basic.StatusItem" include="pk"/>
             <entity-fetcher entity-name="moqui.basic.StatusItem"/></field>
 
         <field name="uoms" type="Uom" is-list="true">
-            <auto-arguments entity-name="moqui.basic.Uom" include="all"/>
             <entity-fetcher entity-name="moqui.basic.Uom"/></field>
         <field name="uom" type="Uom">
-            <auto-arguments entity-name="moqui.basic.Uom" include="pk"/>
             <entity-fetcher entity-name="moqui.basic.Uom"/></field>
     </object>
 
     <object name="EmailObjectType">
         <field name="messages" type="EmailMessage" is-list="true">
-            <auto-arguments entity-name="moqui.basic.email.EmailMessage" include="all"/>
             <entity-fetcher entity-name="moqui.basic.email.EmailMessage"/></field>
         <field name="message" type="EmailMessage">
-            <auto-arguments entity-name="moqui.basic.email.EmailMessage" include="pk"/>
             <entity-fetcher entity-name="moqui.basic.email.EmailMessage"/></field>
 
         <field name="templates" type="EmailTemplate" is-list="true">
-            <auto-arguments entity-name="moqui.basic.email.EmailTemplate" include="all"/>
             <entity-fetcher entity-name="moqui.basic.email.EmailTemplate"/></field>
         <field name="template" type="EmailTemplate">
-            <auto-arguments entity-name="moqui.basic.email.EmailTemplate" include="pk"/>
             <entity-fetcher entity-name="moqui.basic.email.EmailTemplate"/></field>
 
         <field name="servers" type="EmailServer" is-list="true">
-            <auto-arguments entity-name="moqui.basic.email.EmailServer" include="all"/>
             <entity-fetcher entity-name="moqui.basic.email.EmailServer"/></field>
         <field name="server" type="EmailServer">
-            <auto-arguments entity-name="moqui.basic.email.EmailServer" include="pk"/>
             <entity-fetcher entity-name="moqui.basic.email.EmailServer"/></field>
     </object>
 
     <object name="PrintObjectType">
         <field name="printers" type="NetworkPrinter" is-list="true">
-            <auto-arguments entity-name="moqui.basic.print.NetworkPrinter" include="all"/>
             <entity-fetcher entity-name="moqui.basic.print.NetworkPrinter"/></field>
         <field name="printer" type="NetworkPrinter">
-            <auto-arguments entity-name="moqui.basic.print.NetworkPrinter" include="pk"/>
             <entity-fetcher entity-name="moqui.basic.print.NetworkPrinter"/></field>
 
         <field name="jobs" type="PrintJob" is-list="true">
-            <auto-arguments entity-name="moqui.basic.print.PrintJob" include="all"/>
             <entity-fetcher entity-name="moqui.basic.print.PrintJob"/></field>
         <field name="job" type="PrintJob">
-            <auto-arguments entity-name="moqui.basic.print.PrintJob" include="pk"/>
             <entity-fetcher entity-name="moqui.basic.print.PrintJob"/></field>
     </object>
 
     <object name="EntityObjectType">
         <field name="syncs" type="EntitySync" is-list="true">
-            <auto-arguments entity-name="moqui.entity.sync.EntitySync" include="all"/>
             <entity-fetcher entity-name="moqui.entity.sync.EntitySync"/></field>
         <field name="sync" type="EntitySync">
-            <auto-arguments entity-name="moqui.entity.sync.EntitySync" include="pk"/>
             <entity-fetcher entity-name="moqui.entity.sync.EntitySync"/></field>
     </object>
 
     <object name="QueryType">
         <field name="artifacts" type="ArtifactsObjectType"/>
         <field name="dataDocuments" type="DataDocument" is-list="true">
-            <auto-arguments entity-name="moqui.entity.document.DataDocument" include="all"/>
             <entity-fetcher entity-name="moqui.entity.document.DataDocument"/></field>
         <field name="dataDocument" type="DataDocument">
-            <auto-arguments entity-name="moqui.entity.document.DataDocument" include="pk"/>
             <entity-fetcher entity-name="moqui.entity.document.DataDocument"/></field>
         <field name="basic" type="BasicObjectType"/>
         <field name="email" type="EmailObjectType"/>
@@ -123,19 +97,13 @@ along with this software (see the LICENSE.md file). If not, see
         <field name="entity" type="EntityObjectType"/>
 
         <field name="systemMessages" type="SystemMessage" is-list="true">
-            <auto-arguments entity-name="moqui.service.message.SystemMessage" include="all"/>
             <entity-fetcher entity-name="moqui.service.message.SystemMessage"/></field>
         <field name="systemMessage" type="SystemMessage">
-            <auto-arguments entity-name="moqui.service.message.SystemMessage" include="pk"/>
             <entity-fetcher entity-name="moqui.service.message.SystemMessage"/></field>
 
         <field name="users" type="UserAccount" is-list="true">
-            <auto-arguments entity-name="moqui.security.UserAccount" include="all">
-                <exclude field-name="currentPassword"/><exclude field-name="resetPassword"/></auto-arguments>
             <entity-fetcher entity-name="moqui.security.UserAccount"/></field>
         <field name="user" type="UserAccount">
-            <auto-arguments entity-name="moqui.security.UserAccount" include="pk">
-                <exclude field-name="currentPassword"/><exclude field-name="resetPassword"/></auto-arguments>
             <entity-fetcher entity-name="moqui.security.UserAccount"/></field>
     </object>
     <pre-load-object object-type="EnumerationType"/>
