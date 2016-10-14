@@ -12,7 +12,7 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/graphql-api-0.0.1.xsd"
-        name="mantle" query="QueryType">
+        name="mantle" query="MantleQueryType">
     <extend-object name="Party">
         <exclude-field name="person"/>
         <exclude-field name="organization"/>
@@ -28,7 +28,7 @@ along with this software (see the LICENSE.md file). If not, see
         <field name="transaction" type="AcctgTrans"><entity-fetcher entity-name="mantle.ledger.transaction.AcctgTrans"/></field>
     </object>
 
-    <object name="QueryType">
+    <object name="MantleQueryType">
 
         <field name="partyInterface" type="PartyInterface" is-list="true">
             <auto-arguments entity-name="mantle.party.Party" include="all"/>

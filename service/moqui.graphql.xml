@@ -12,7 +12,7 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/graphql-api-0.0.1.xsd"
-        name="moqui" query="QueryType">
+        name="moqui" query="MoquiQueryType">
 
     <object name="ArtifactsObjectType">
         <field name="hitSummary" type="ArtifactHitReport" is-list="true">
@@ -85,7 +85,7 @@ along with this software (see the LICENSE.md file). If not, see
             <entity-fetcher entity-name="moqui.entity.sync.EntitySync"/></field>
     </object>
 
-    <object name="QueryType">
+    <object name="MoquiQueryType">
         <field name="artifacts" type="ArtifactsObjectType"/>
         <field name="dataDocuments" type="DataDocument" is-list="true">
             <entity-fetcher entity-name="moqui.entity.document.DataDocument"/></field>
