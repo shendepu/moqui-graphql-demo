@@ -12,7 +12,7 @@ along with this software (see the LICENSE.md file). If not, see
 <http://creativecommons.org/publicdomain/zero/1.0/>.
 -->
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/graphql-api-0.0.1.xsd"
-    name="graphql-demo" query="GraphQLDemoQueryType">
+    name="graphql-demo" query="GraphQLDemoQueryType" mutation="GraphQLDemoMutationType">
     <extend-object name="Party">
         <exclude-field name="person"/>
         <exclude-field name="organization"/>
@@ -32,29 +32,39 @@ along with this software (see the LICENSE.md file). If not, see
     <object name="MoquiGraphQLDemo">
         <field name="basic" type="Basic"/>
         <field name="products" type="Product" is-list="true">
-            <auto-arguments entity-name="mantle.product.Product" include="all"/>
             <entity-fetcher entity-name="mantle.product.Product"/>
         </field>
         <field name="product" type="Product">
-            <auto-arguments entity-name="mantle.product.Product" include="pk"/>
             <entity-fetcher entity-name="mantle.product.Product"/>
         </field>
         <field name="partyInterface" type="PartyInterface" is-list="true">
             <auto-arguments entity-name="mantle.party.Party" include="all"/>
-            <argument name="pagination" type="PaginationInputType"/>
             <entity-fetcher entity-name="mantle.party.Party"/>
         </field>
         <field name="person" type="Person">
-            <auto-arguments entity-name="mantle.party.Person" include="all"/>
             <entity-fetcher entity-name="mantle.party.Person" interface-entity-name="mantle.party.Party"/>
         </field>
         <field name="persons" type="Person" is-list="true">
-            <auto-arguments entity-name="mantle.party.Person" include="all"/>
             <entity-fetcher entity-name="mantle.party.Person" interface-entity-name="mantle.party.Party"/>
         </field>
     </object>
     <object name="GraphQLDemoQueryType">
         <field name="graphqlDemo" type="MoquiGraphQLDemo"/>
+    </object>
+    <object name="CreatePersonPayload">
+        <field name="clientMutationId" type="String"/>
+        <field name="partyId" type="String"/>
+        <field name="partyTypeEnumId" type="String"/>
+        <field name="person" type="Person">
+            <entity-fetcher entity-name="mantle.party.Person" interface-entity-name="mantle.party.Party">
+                <key-map field-name="partyId"/>
+            </entity-fetcher>
+        </field>
+    </object>
+    <object name="GraphQLDemoMutationType">
+        <field name="createPerson" type="CreatePersonPayload">
+            <service-fetcher service="graphqldemo.mantle.party.PartyServices.create#Person"/>
+        </field>
     </object>
     <pre-load-object object-type="EnumerationType"/>
 </schema>

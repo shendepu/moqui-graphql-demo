@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.0.xsd">
+    <service verb="create" noun="Person">
+        <in-parameters>
+            <auto-parameters entity-name="mantle.party.Person" include="nonpk"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="clientMutationId" type="String"/>
+            <parameter name="partyId" type="String"/>
+        </out-parameters>
+        <actions>
+            <set field="partyId" value="ORG_BLUTH_GOB"/>
+            <set field="clientMutationId" value="testMutationId"/>
+        </actions>
+    </service>
+
+</services>
