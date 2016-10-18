@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?><!-- No copyright or license for configuration file, details here are not considered a creative work. -->
 <moqui-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/moqui-conf-2.0.xsd">
     <cache-list>
-        <cache name="service.graphql.schema.definition" expire-time-idle="10"/>
-        <cache name="service.graphql.graphql" expire-time-idle="10"/>
+        <!-- During development, it is better to reload *.graphql.xml by manual clear cache in System app.
+             expire-time-idle actually causes schema rebuilt every defined seconds
+             If the expire-time-idle is set too short, it adds overhead.
+         -->
+        <cache name="service.graphql.schema.definition" expire-time-idle="3600"/>
+        <cache name="service.graphql.graphql" expire-time-idle="3600"/>
     </cache-list>
 </moqui-conf>
