@@ -62,7 +62,7 @@ along with this software (see the LICENSE.md file). If not, see
         </field>
     </object>
     <object name="GraphQLDemoMutationType">
-        <field name="createPerson" type="CreatePersonPayload">
+        <field name="createPerson" type="CreatePersonPayload" for="mutation">
             <service-fetcher service="graphqldemo.mantle.party.PartyServices.create#Person"/>
         </field>
     </object>
