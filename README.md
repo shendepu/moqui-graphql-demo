@@ -21,50 +21,59 @@ git clone https://github.com/shendepu/moqui-graphql-demo ./runtime/component/mqo
 
 First open http://localhost:8080 and login with john.deo test account
 
-then open [http://localhost:8080/graphql/GraphiQL?schemaName=moqui](http://localhost:8080/graphql/GraphiQL?schemaName=moqui)
+then open [http://localhost:8080/graphql/GraphiQL](http://localhost:8080/graphql/GraphiQL)
 
 #### Note: It seems safari has issue to show variable panel of GraphiQL. Chrome and firefox are fine. 
 
 input 
 ```graphql
 query QueryType($showUsers: Boolean!) {
-	artifacts {
-    hitSummary (pagination:{ pageSize: 1 }) {
-      data {
-        artifactType
-        artifactSubType
+  moqui {
+    artifacts {
+      hitSummary (pagination:{ pageSize: 1 }) {
+        edges {
+          node {
+            artifactType
+            artifactSubType
+          }
+        }
       }
     }
-  }
-  users (pagination: {pageSize: 2}) @include(if: $showUsers) {
-    data {
-      userId 
+    users (pagination: {pageSize: 2}) @include(if: $showUsers) {
+      edges {
+        node {
+          userId 
+          username
+          emailAddress
+        }
+      }
+    }
+    user(userId: "EX_JOHN_DOE") {
+      userId
       username
-      emailAddress
-      
+      userFullName
     }
-  }
-  user(userId: "EX_JOHN_DOE") {
-    userId
-    username
-    userFullName
-  }
-  
-  entity {
-    syncs {
-      data {
-        entitySyncId
+
+    entity {
+      syncs {
+        edges {
+          node {
+          	entitySyncId
+          }
+        }
       }
     }
-  }
-  basic {
-    geos (pagination: {pageSize: 4 }) {
-      data {
-        geoId
-        geoName
-      }
-      pageInfo {
-        totalCount
+    basic {
+      geos (pagination: {pageSize: 4 }) {
+        edges {
+          node {
+            geoId
+            geoName
+          }
+        }
+        pageInfo {
+          totalCount
+        }
       }
     }
   }
