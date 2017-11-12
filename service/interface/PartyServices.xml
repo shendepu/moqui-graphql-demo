@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.1.xsd">
+    <service verb="return" noun="PartyInterface" type="interface">
+        <implements service="graphql.GraphQLServices.return#Id"/>
+        <out-parameters>
+            <auto-parameters entity-name="mantle.party.Party"/>
+            <auto-parameters entity-name="mantle.party.Person" include="nonpk"/>
+            <auto-parameters entity-name="mantle.party.Organization" include="nonpk"/>
+        </out-parameters>
+    </service>
+
+    <service verb="augment" noun="PartyInterfaceValue">
+        <in-parameters><parameter name="party" type="Map"/></in-parameters>
+        <out-parameters><parameter name="jointParty" type="Map"/></out-parameters>
+        <actions>
+            <service-call name="graphql.GraphQLServices.augment#InterfaceValueWithConcrete" out-map="context" in-map="[
+                    interfaceValue:party, primaryField:'partyId', resolveField:'partyTypeEnumId',
+                    objectDefList: [
+                        [entityName:'mantle.party.Person', resolveValue:'PtyPerson'],
+                        [entityName:'mantle.party.Organization', resolveValue:'PtyOrganization']
+                    ],
+                    useCache:true]"/>
+            <set field="jointParty" from="jointValueMap"/>
+        </actions>
+    </service>
+
+    <service verb="augment" noun="PartyInterfaceList">
+        <in-parameters><parameter name="partyList" type="List"/></in-parameters>
+        <out-parameters><parameter name="jointPartyList" type="List"/></out-parameters>
+        <actions>
+            <service-call name="graphql.GraphQLServices.augment#InterfaceListWithConcrete" out-map="context" in-map="[
+                    interfaceList:partyList, primaryField:'partyId', resolveField:'partyTypeEnumId',
+                    objectDefList: [
+                        [entityName:'mantle.party.Person', resolveValue:'PtyPerson'],
+                        [entityName:'mantle.party.Organization', resolveValue:'PtyOrganization']
+                ]]"/>
+            <set field="jointPartyList" from="jointValueList"/>
+        </actions>
+    </service>
+
+    <service verb="put" noun="PartyInterfaceInContextWithId">
+        <implements service="interface.PartyServices.return#PartyInterface"/>
+        <in-parameters><parameter name="party" type="Map"/></in-parameters>
+        <actions>
+            <service-call name="interface.PartyServices.augment#PartyInterfaceValue" in-map="context" out-map="context"/>
+            <service-call name="graphql.GraphQLServices.put#MapInContextWithId" in-map="[ev:jointParty, pkFieldNames:['partyId']]" out-map="context"/>
+        </actions>
+    </service>
+</services>

@@ -29,16 +29,6 @@ input
 ```graphql
 query QueryType($showUsers: Boolean!) {
   moqui {
-    artifacts {
-      hitSummary (pagination:{ pageSize: 1 }) {
-        edges {
-          node {
-            artifactType
-            artifactSubType
-          }
-        }
-      }
-    }
     users (pagination: {pageSize: 2}) @include(if: $showUsers) {
       edges {
         node {
@@ -83,6 +73,26 @@ also add query variables
 ```json
 {
   "showUsers": true
+}
+```
+
+### mutation 
+```
+mutation {
+  graphqlDemo {
+    createPerson (input:{
+      firstName: "Dummy"
+      lastName: "Dude"
+    }) {
+      id
+      partyId
+    	partyTypeEnumId
+      ... on Person {
+        firstName
+        lastName
+      }
+    }
+  }
 }
 ```
 

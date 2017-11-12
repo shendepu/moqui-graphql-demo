@@ -14,35 +14,24 @@ along with this software (see the LICENSE.md file). If not, see
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/graphql-api-0.0.1.xsd"
         name="mantle" query="MantleQueryType">
     <extend-object name="Party">
+        <convert-to-interface resolver-field="partyTypeEnumId"/>
         <exclude-field name="person"/>
         <exclude-field name="organization"/>
-        <convert-to-interface resolver-field="partyTypeEnumId"/>
     </extend-object>
     <extend-object name="Person">
-        <interface name="PartyInterface" resolver-value="PtyPerson" resolver-type="Person"/></extend-object>
+        <interface name="PartyInterface" resolver-value="PtyPerson"/></extend-object>
     <extend-object name="Organization">
-        <interface name="PartyInterface" resolver-value="PtyOrganization" resolver-type="PtyOrganization"/></extend-object>
+        <interface name="PartyInterface" resolver-value="PtyOrganization"/></extend-object>
 
-    <object name="GlObjectType">
-        <field name="transactions" type="AcctgTrans" is-list="true"><entity-fetcher entity-name="mantle.ledger.transaction.AcctgTrans"/></field>
-        <field name="transaction" type="AcctgTrans"><entity-fetcher entity-name="mantle.ledger.transaction.AcctgTrans"/></field>
-    </object>
+    <!-- Party, Person, Organization -->
+    <interface-fetcher name="partyInterfaceFetcher" primary-field="partyId" resolver-field="partyTypeEnumId" cache="true">
+        <default-fetcher><entity-fetcher entity-name="mantle.party.Party" cache="true"/></default-fetcher>
+        <resolver-fetcher resolver-value="PtyPerson"><entity-fetcher entity-name="mantle.party.Person" cache="true"/></resolver-fetcher>
+        <resolver-fetcher resolver-value="PtyOrganization"><entity-fetcher entity-name="mantle.party.Organization" cache="true"/></resolver-fetcher></interface-fetcher>
 
     <object name="MantleQueryType">
-
-        <field name="partyInterface" type="PartyInterface" is-list="true">
-            <auto-arguments entity-name="mantle.party.Party" include="all"/>
-            <entity-fetcher entity-name="mantle.party.Party"/>
-        </field>
-
-        <field name="parties" type="Party" is-list="true"><entity-fetcher entity-name="mantle.party.Party" interface-entity-name="mantle.party.Party"/></field>
-        <field name="party" type="Party"><entity-fetcher entity-name="mantle.party.Party" interface-entity-name="mantle.party.Party"/></field>
-
-        <field name="persons" type="Person" is-list="true"><entity-fetcher entity-name="mantle.party.Person" interface-entity-name="mantle.party.Party"/></field>
-        <field name="person" type="Person"><entity-fetcher entity-name="mantle.party.Person" interface-entity-name="mantle.party.Party"/></field>
-
-        <field name="organizations" type="Organization" is-list="true"><entity-fetcher entity-name="mantle.party.Organization" interface-entity-name="mantle.party.Party"/></field>
-        <field name="organization" type="Organization"><entity-fetcher entity-name="mantle.party.Organization" interface-entity-name="mantle.party.Party"/></field>
+        <field name="parties" type="PartyInterface" is-list="true"><interface-fetcher ref="partyInterfaceFetcher"/></field>
+        <field name="party" type="PartyInterface"><interface-fetcher ref="partyInterfaceFetcher"/></field>
 
         <field name="facilities" type="Facility" is-list="true"><entity-fetcher entity-name="mantle.facility.Facility"/></field>
         <field name="facility" type="Facility"><entity-fetcher entity-name="mantle.facility.Facility"/></field>
@@ -73,8 +62,5 @@ along with this software (see the LICENSE.md file). If not, see
 
         <field name="financialAccounts" type="FinancialAccount" is-list="true"><entity-fetcher entity-name="mantle.account.financial.FinancialAccount"/></field>
         <field name="financialAccount" type="FinancialAccount"><entity-fetcher entity-name="mantle.account.financial.FinancialAccount"/></field>
-
-        <field name="gl" type="GlObjectType"/>
     </object>
-    <pre-load-object object-type="EnumerationType"/>
 </schema>

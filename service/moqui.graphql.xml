@@ -13,15 +13,6 @@ along with this software (see the LICENSE.md file). If not, see
 -->
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/graphql-api-0.0.1.xsd"
         name="moqui" query="MoquiQueryType">
-
-    <object name="ArtifactsObjectType">
-        <field name="hitSummary" type="ArtifactHitReport" is-list="true">
-            <entity-fetcher entity-name="moqui.server.ArtifactHitReport"/></field>
-
-        <field name="hitBins" type="ArtifactHitBin" is-list="true">
-            <entity-fetcher entity-name="moqui.server.ArtifactHitBin"/></field>
-    </object>
-
     <object name="BasicObjectType">
         <field name="enums" type="Enumeration" is-list="true">
             <entity-fetcher entity-name="moqui.basic.Enumeration"/></field>
@@ -86,15 +77,14 @@ along with this software (see the LICENSE.md file). If not, see
     </object>
 
     <object name="MoquiQueryType">
-        <field name="artifacts" type="ArtifactsObjectType"/>
         <field name="dataDocuments" type="DataDocument" is-list="true">
             <entity-fetcher entity-name="moqui.entity.document.DataDocument"/></field>
         <field name="dataDocument" type="DataDocument">
             <entity-fetcher entity-name="moqui.entity.document.DataDocument"/></field>
-        <field name="basic" type="BasicObjectType"/>
-        <field name="email" type="EmailObjectType"/>
-        <field name="print" type="PrintObjectType"/>
-        <field name="entity" type="EntityObjectType"/>
+        <field name="basic" type="BasicObjectType"><empty-fetcher/></field>
+        <field name="email" type="EmailObjectType"><empty-fetcher/></field>
+        <field name="print" type="PrintObjectType"><empty-fetcher/></field>
+        <field name="entity" type="EntityObjectType"><empty-fetcher/></field>
 
         <field name="systemMessages" type="SystemMessage" is-list="true">
             <entity-fetcher entity-name="moqui.service.message.SystemMessage"/></field>
@@ -106,5 +96,4 @@ along with this software (see the LICENSE.md file). If not, see
         <field name="user" type="UserAccount">
             <entity-fetcher entity-name="moqui.security.UserAccount"/></field>
     </object>
-    <pre-load-object object-type="EnumerationType"/>
 </schema>

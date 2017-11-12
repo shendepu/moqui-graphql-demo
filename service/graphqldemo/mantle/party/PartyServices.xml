@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-definition-2.0.xsd">
     <service verb="create" noun="Person">
-        <implements service="graphql.GeneralServices.mutate#OperationInterface"/>
+        <implements service="graphql.GraphQLServices.return#Id"/>
+        <implements service="interface.PartyServices.return#PartyInterface"/>
         <in-parameters>
             <auto-parameters entity-name="mantle.party.Person" include="nonpk"/>
         </in-parameters>
-        <out-parameters>
-            <parameter name="partyId" type="String"/>
-        </out-parameters>
         <actions>
             <service-call name="mantle.party.PartyServices.create#Person" in-map="context" out-map="context"/>
+            <entity-find-one entity-name="mantle.party.Party" value-field="party"/>
+            <service-call name="interface.PartyServices.put#PartyInterfaceInContextWithId" in-map="context" out-map="context"/>
         </actions>
     </service>
-
 </services>
